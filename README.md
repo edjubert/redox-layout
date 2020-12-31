@@ -7,9 +7,22 @@
 ----
 
 This keymap is **a work in progress**, and is meant to be used on macOS.
-I use this keymap with a Colemak input layout of MacOS. I'm also working on the Colemak version.
+I use this keymap with a Colemak input layout of MacOS.
+There is also a Colemak version available on the `colemak` branch
 
 [View on KLE](http://www.keyboard-layout-editor.com/#/gists/a320cd783e183d8b9637d3862794c433)
+
+## Installation
+
+Clone this repo under
+```bash
+qmk_firmware_folder/keyboards/redox/keymaps
+```
+
+Build it with
+```bash
+make redox:edjubert
+```
 
 ## Layers
 
