@@ -122,6 +122,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
+      case M_INFERIOR:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_COMM);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_COMM);
+        }
+        return false;
+        break;
+      case M_SUPERIOR:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_DOT);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_DOT);
+        }
+        return false;
+        break;
 	}
 	return true;
 };
@@ -138,12 +158,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define TT_INTER TT(_INTER)
 #define TT_NAV   TT(_NAV)
 
-#define KC_BRL  M_BRACKET_LEFT     // (
-#define KC_BRR  M_BRACKET_RIGHT    // )
-#define KC_SBRL M_SBRACKET_LEFT    // [
-#define KC_SBRR M_SBRACKET_RIGHT   // ]
-#define KC_CBRL M_CBRACKET_LEFT   // {
-#define KC_CBRR M_CBRACKET_RIGHT  // }
+#define KC_BRL  M_BRACKET_LEFT      // (
+#define KC_BRR  M_BRACKET_RIGHT     // )
+#define KC_SBRL M_SBRACKET_LEFT     // [
+#define KC_SBRR M_SBRACKET_RIGHT    // ]
+#define KC_CBRL M_CBRACKET_LEFT     // {
+#define KC_CBRR M_CBRACKET_RIGHT    // }
+#define KC_INF  M_INFERIOR          // <
+#define KC_SUP  M_SUPERIOR          // >
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -167,13 +189,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                                            _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,KC_SBRL ,KC_SBRR ,_______ ,_______ ,_______ ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,KC_SBRL ,KC_SBRR ,KC_INF  ,KC_SUP  ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,KC_BRL  ,KC_BRR  ,KC_CBRL ,KC_CBRR ,_______ ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                         ,_______ ,_______ ,KC_EQL  ,KC_PLUS ,KC_MINS ,KC_UNDS ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,        _______ ,_______ ,_______ ,KC_EQL  ,KC_PLUS ,KC_MINS ,KC_UNDS ,_______ ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______          _______ ,_______ ,_______ ,KC_BRL  ,KC_BRR  ,KC_CBRL ,KC_CBRR ,_______ ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,     KC_BTN1 ,    KC_BTN2 ,_______ ,        _______ ,KC_BTN2 ,    KC_BTN1 ,     _______ ,_______ ,_______ ,_______
+     _______ ,_______ ,_______ ,_______ ,     KC_BTN1 ,    _______ ,_______ ,        _______ ,_______ ,    KC_BTN1 ,     _______ ,_______ ,_______ ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
