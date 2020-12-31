@@ -2,7 +2,7 @@
 ## My interpretation of Jeherve work on Colmak Redox layout
 
 ----
-![edjubert Redox Layout](https://github.com/edjubert/qmk_firmware/tree/master/keyboards/redox/keymaps/edjubert/redox---qwerty.png)
+![edjubert Redox Layout](https://raw.githubusercontent.com/edjubert/redox-layout/master/redox---qwerty.png)
 
 ----
 
