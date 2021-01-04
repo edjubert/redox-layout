@@ -8,7 +8,7 @@
 
 This keymap is **a work in progress**, and is meant to be used on macOS.
 I use this keymap with a Colemak input layout of MacOS.
-There is also a Colemak version available on the `colemak` branch
+There is also a Colemak version available on the `colemak` branch and a Programmer Mod on `programmer_qwerty` and `programmer_colemak` branches
 
 [View on KLE](http://www.keyboard-layout-editor.com/#/gists/a320cd783e183d8b9637d3862794c433)
 
@@ -38,6 +38,11 @@ This layout is available [here](https://github.com/edjubert/qmk_firmware/tree/ma
 There is a Colemak version available [here](https://github.com/edjubert/qmk_firmware/tree/master/keyboards/redox/keymaps/edjubert_colemak).
 
 This is a customization of Jeherve available [here](https://github.com/jeherve/redox-layout).
+
+## Programmer mod
+This mod is inspired by programmer [programmer dvorak layout](https://www.slant.co/options/18047/~programmer-dvorak-review)
+But I didn't swap numbers and special chars, maybe due to AZERTY like allergy.
+This mod is more to test if it is more natural to write numbers this way as I still cannot get use of the 1234567890 layout.
 
 ## Credits
 
