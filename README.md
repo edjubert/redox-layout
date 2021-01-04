@@ -41,7 +41,6 @@ This is a customization of Jeherve available [here](https://github.com/jeherve/r
 
 ## Programmer mod
 This mod is inspired by programmer [programmer dvorak layout](https://www.slant.co/options/18047/~programmer-dvorak-review)
-But I didn't swap numbers and special chars, maybe due to AZERTY like allergy.
 This mod is more to test if it is more natural to write numbers this way as I still cannot get use of the 1234567890 layout.
 
 ## Credits
