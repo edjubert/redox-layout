@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "edjubert.h"
 
 extern keymap_config_t keymap_config;
 
@@ -27,121 +28,21 @@ enum custom_keycodes {
 	M_CBRACKET_RIGHT,
     M_SUPERIOR,
     M_INFERIOR,
+    M_0_I,
+    M_1_I,
+    M_2_I,
+    M_3_I,
+    M_4_I,
+    M_5_I,
+    M_6_I,
+    M_7_I,
+    M_8_I,
+    M_9_I,
   INV_1P,
   ALFRED,
   PASTE
 };
 
-// Is shift being held? Let's store this in a bool.
-static bool shift_held = false;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch(keycode) {
-      case INV_1P:
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT)SS_TAP(X_BSLASH)SS_UP(X_LGUI)SS_UP(X_LALT));
-        }
-        return false;
-        break;
-      case ALFRED:
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_SPACE)SS_UP(X_LALT));
-        }
-        return false;
-        break;
-      case PASTE:
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_LSFT("V")SS_UP(X_LGUI));
-        }
-        return false;
-        break;
-      case KC_LSFT:
-        shift_held = record->event.pressed;
-        return true;
-        break;
-      case KC_RSFT:
-        shift_held = record->event.pressed;
-        return true;
-        break;
-      case M_BRACKET_LEFT:
-        if (record->event.pressed) {
-            register_code(KC_LSFT);
-            register_code(KC_9);
-        } else { // Release the key
-            unregister_code(KC_LSFT);
-            unregister_code(KC_9);
-        }
-        return false;
-        break;
-      case M_BRACKET_RIGHT:
-        if (record->event.pressed) {
-            register_code(KC_LSFT);
-            register_code(KC_0);
-        } else { // Release the key
-            unregister_code(KC_LSFT);
-            unregister_code(KC_0);
-        }
-        return false;
-        break;
-      case M_SBRACKET_LEFT:
-        if (record->event.pressed) {
-          register_code(KC_LBRC);
-        } else {
-          unregister_code(KC_LBRC);
-        }
-        return false;
-        break;
-      case M_SBRACKET_RIGHT:
-        if (record->event.pressed) {
-          register_code(KC_RBRC);
-        } else {
-          unregister_code(KC_RBRC);
-        }
-        return false;
-        break;
-      case M_CBRACKET_LEFT:
-        if (record->event.pressed) {
-          register_code(KC_LSFT);
-          register_code(KC_LBRC);
-        } else {
-          unregister_code(KC_LSFT);
-          unregister_code(KC_LBRC);
-        }
-        return false;
-        break;
-      case M_CBRACKET_RIGHT:
-        if (record->event.pressed) {
-          register_code(KC_LSFT);
-          register_code(KC_RBRC);
-        } else {
-          unregister_code(KC_LSFT);
-          unregister_code(KC_RBRC);
-        }
-        return false;
-        break;
-      case M_INFERIOR:
-        if (record->event.pressed) {
-          register_code(KC_LSFT);
-          register_code(KC_COMM);
-        } else {
-          unregister_code(KC_LSFT);
-          unregister_code(KC_COMM);
-        }
-        return false;
-        break;
-      case M_SUPERIOR:
-        if (record->event.pressed) {
-          register_code(KC_LSFT);
-          register_code(KC_DOT);
-        } else {
-          unregister_code(KC_LSFT);
-          unregister_code(KC_DOT);
-        }
-        return false;
-        break;
-	}
-	return true;
-};
 
 // Shortcut to make keymap more readable
 // To declare a keycode for long press:
@@ -164,12 +65,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define KC_INF  M_INFERIOR          // <
 #define KC_SUP  M_SUPERIOR          // >
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_GRV  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,
+     KC_GRV  ,KC_7    ,KC_5    ,KC_3    ,KC_1    ,KC_9    ,                                            KC_0    ,KC_2    ,KC_4    ,KC_6    ,KC_8    ,KC_MINS ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,PASTE   ,                           INV_1P ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_BSLS ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
