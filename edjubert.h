@@ -53,7 +53,7 @@
   // #define KC_MYKEYCODE LT(_LAYERNAME, KC_STDKEY)
   // #define KC_SYQT  LT(_SYMB,KC_QUOT)
 
-  #define SYM_L    MO(_SYMB)
+  #define SYM_L    TT(_SYMB)
   #define MO_INTR  MO(_INTER)
   
   #define TT_ADJ   TT(_ADJUST)
@@ -70,9 +70,9 @@
   #define KC_SUP  M_SUPERIOR          // >
 
   bool complex_calls(uint16_t keycode, keyrecord_t *record);
-  bool invert_keys(uint16_t keycode, keyrecord_t *record);
+  bool invert_keys(uint16_t keycode, keyrecord_t *record, bool shift_held);
   bool force_brackets(uint16_t keycode, keyrecord_t *record);
-  bool held_shift(uint16_t keycode, keyrecord_t *record);
+  bool held_shift(uint16_t keycode, keyrecord_t *record, bool *shift_held);
   bool process_record_user(uint16_t keycode, keyrecord_t *record);
   uint32_t layer_state_set_user(uint32_t state);
   void persistent_default_layer_set(uint16_t default_layer);
