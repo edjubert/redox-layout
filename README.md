@@ -8,7 +8,7 @@
 
 This keymap is **a work in progress**, and is meant to be used on macOS.
 I use this keymap with a Colemak input layout of MacOS.
-There is also a Colemak version available on the `colemak` branch and a Programmer Mod on `programmer_qwerty` and `programmer_colemak` branches
+There is also a Colemak version available on the `colemak` branch, a Dvorak version on the `dvorak` branch and a Programmer Mod on `programmer_qwerty`,`programmer_colemak` and `programmer_dvorak` branches
 
 [View on KLE](http://www.keyboard-layout-editor.com/#/gists/a320cd783e183d8b9637d3862794c433)
 
@@ -34,9 +34,6 @@ My layout uses 5 layers:
 4. An international layer (_inter), empty for the moment.
 5. A keyboard control layer, not pictured here, allowing me to control the LED lighting as well as the keyboard debug functions.
 
-This layout is available [here](https://github.com/edjubert/qmk_firmware/tree/master/keyboards/redox/keymaps/edjubert).
-There is a Colemak version available [here](https://github.com/edjubert/qmk_firmware/tree/master/keyboards/redox/keymaps/edjubert_colemak).
-
 This is a customization of Jeherve available [here](https://github.com/jeherve/redox-layout).
 
 ## Programmer mod
@@ -51,3 +48,4 @@ This mod is more to test if it is more natural to write numbers this way as I st
 - This layout uses [QMK keyboard controller firmware](https://github.com/qmk/qmk_firmware/).
 
 - I reuse a change the layout of jeherve for my own needs. Take a look at jeherve work [here](https://github.com/jeherve/redox-layout)
+- Also an adaptation of Programmer Dvorak. [See the review here](https://www.slant.co/options/18047/~programmer-dvorak-review)
