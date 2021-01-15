@@ -1,5 +1,388 @@
 #include QMK_KEYBOARD_H
-#include "edjubert.h"
+  #ifdef AUDIO_ENABLE
+    float tone_colemak[][2] = SONG(ZELDA_TREASURE);
+  #endif
+
+  extern keymap_config_t keymap_config;
+
+  // Each layer gets a name for readability, which is then used in the keymap matrix below.
+  // The underscores don't mean anything - you can have a layer called STUFF or any other name.
+  // Layer names don't all need to be of the same length, obviously, and you can also skip them
+  // entirely and just use numbers.
+  #define _QWERTY 0
+  #define _SYMB 1
+  #define _NAV 2
+  #define _INTER 3
+  #define _ADJUST 4
+
+  enum custom_keycodes {
+      COLEMAK = SAFE_RANGE,
+      SYMB,
+      NAV,
+      INTER,
+      ADJUST,
+      // These use process_record_user()
+      M_BRACKET_LEFT,
+      M_BRACKET_RIGHT,
+      M_SBRACKET_LEFT,
+      M_SBRACKET_RIGHT,
+      M_CBRACKET_LEFT,
+      M_CBRACKET_RIGHT,
+      M_SUPERIOR,
+      M_INFERIOR,
+      M_0_I,
+      M_1_I,
+      M_2_I,
+      M_3_I,
+      M_4_I,
+      M_5_I,
+      M_6_I,
+      M_7_I,
+      M_8_I,
+      M_9_I,
+    INV_1P,
+    ALFRED,
+    PASTE
+  };
+
+
+  // Shortcut to make keymap more readable
+  // To declare a keycode for long press:
+  // #define KC_MYKEYCODE LT(_LAYERNAME, KC_STDKEY)
+  // #define KC_SYQT  LT(_SYMB,KC_QUOT)
+
+  #define SYM_L    TT(_SYMB)
+  #define MO_INTR  MO(_INTER)
+  
+  #define TT_ADJ   TT(_ADJUST)
+  #define TT_INTER TT(_INTER)
+  #define TT_NAV   TT(_NAV)
+
+static bool shift_held = false;
+
+void persistent_default_layer_set(uint16_t default_layer) {
+	eeconfig_update_default_layer(default_layer);
+	default_layer_set(default_layer);
+}
+
+
+// Change LED colors depending on the layer.
+uint32_t layer_state_set_user(uint32_t state) {
+	switch (biton32(state)) {
+		case _SYMB:
+			rgblight_setrgb_orange();
+			break;
+		case _NAV:
+			rgblight_setrgb_springgreen();
+			break;
+		case _INTER:
+			rgblight_setrgb_teal();
+			break;
+		case _ADJUST:
+			rgblight_setrgb_red();
+			break;
+		default: //  for any other layers, or the default layer
+			rgblight_setrgb_yellow();
+			break;
+	}
+	return state;
+};
+
+bool invert_keys(uint16_t keycode, keyrecord_t *record, bool shift_helded) {
+  switch(keycode) {
+      case M_0_I:
+        if (record->event.pressed) {
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_0);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_0);
+        }
+        return false;
+      case M_1_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_1);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_1);
+        }
+        return false;
+      case M_2_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_2);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_2);
+        }
+        return false;
+      case M_3_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_3);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_3);
+        }
+        return false;
+      case M_4_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_4);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_4);
+        }
+        return false;
+      case M_5_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_5);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_5);
+        }
+        return false;
+      case M_6_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_6);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_6);
+        }
+        return false;
+      case M_7_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_7);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_7);
+        }
+        return false;
+      case M_8_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_8);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_8);
+        }
+        return false;
+      case M_9_I:
+        if (record->event.pressed){
+          if (shift_helded) {
+            unregister_code(KC_LSFT);
+            unregister_code(KC_RSFT);
+          } else {
+            register_code(KC_LSFT);
+          }
+          register_code(KC_9);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_9);
+        }
+        return false;
+      default:
+        return false;
+  }
+}
+
+
+
+bool force_brackets(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+      case M_BRACKET_LEFT:
+        if (record->event.pressed) {
+            register_code(KC_LSFT);
+            register_code(KC_9);
+        } else { // Release the key
+            unregister_code(KC_LSFT);
+            unregister_code(KC_9);
+        }
+        return false;
+      case M_BRACKET_RIGHT:
+        if (record->event.pressed) {
+            register_code(KC_LSFT);
+            register_code(KC_0);
+        } else { // Release the key
+            unregister_code(KC_LSFT);
+            unregister_code(KC_0);
+        }
+        return false;
+      case M_SBRACKET_LEFT:
+        if (record->event.pressed) {
+          register_code(KC_LBRC);
+        } else {
+          unregister_code(KC_LBRC);
+        }
+        return false;
+      case M_SBRACKET_RIGHT:
+        if (record->event.pressed) {
+          register_code(KC_RBRC);
+        } else {
+          unregister_code(KC_RBRC);
+        }
+        return false;
+      case M_CBRACKET_LEFT:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_LBRC);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_LBRC);
+        }
+        return false;
+      case M_CBRACKET_RIGHT:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_RBRC);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_RBRC);
+        }
+        return false;
+      case M_INFERIOR:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_COMM);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_COMM);
+        }
+        return false;
+      case M_SUPERIOR:
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+          register_code(KC_DOT);
+        } else {
+          unregister_code(KC_LSFT);
+          unregister_code(KC_DOT);
+        }
+        return false;
+      default:
+        return false;
+  }
+}
+
+bool complex_calls(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+      case INV_1P:
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT)SS_TAP(X_BSLASH)SS_UP(X_LGUI)SS_UP(X_LALT));
+        }
+        return false;
+        break;
+      case ALFRED:
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_SPACE)SS_UP(X_LALT));
+        }
+        return false;
+        break;
+      case PASTE:
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LGUI)SS_LSFT("V")SS_UP(X_LGUI));
+        }
+        return false;
+        break;
+      default:
+        return false;
+  }
+}
+
+bool held_shift(uint16_t keycode, keyrecord_t *record, bool *shift_held) {
+  switch(keycode) {
+      case KC_LSFT:
+        *shift_held = record->event.pressed;
+        return true;
+        break;
+      case KC_RSFT:
+        *shift_held = record->event.pressed;
+        return true;
+        break;
+      default:
+        return false;
+  }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch(keycode) {
+      case INV_1P:
+      case ALFRED:
+      case PASTE:
+        return complex_calls(keycode, record);
+      case KC_LSFT:
+      case KC_RSFT:
+        return held_shift(keycode, record, &shift_held);
+      case M_BRACKET_LEFT:
+      case M_BRACKET_RIGHT:
+      case M_SBRACKET_LEFT:
+      case M_SBRACKET_RIGHT:
+      case M_CBRACKET_LEFT:
+      case M_CBRACKET_RIGHT:
+      case M_INFERIOR:
+      case M_SUPERIOR:
+        return force_brackets(keycode, record);
+	}
+	return true;
+};
+
+
+#define KC_BRL  M_BRACKET_LEFT      // (
+#define KC_BRR  M_BRACKET_RIGHT     // )
+#define KC_SBRL M_SBRACKET_LEFT     // [
+#define KC_SBRR M_SBRACKET_RIGHT    // ]
+#define KC_CBRL M_CBRACKET_LEFT     // {
+#define KC_CBRR M_CBRACKET_RIGHT    // }
+#define KC_INF  M_INFERIOR          // <
+#define KC_SUP  M_SUPERIOR          // >
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

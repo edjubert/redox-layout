@@ -60,20 +60,11 @@
   #define TT_INTER TT(_INTER)
   #define TT_NAV   TT(_NAV)
   
-  #define KC_BRL  M_BRACKET_LEFT      // (
-  #define KC_BRR  M_BRACKET_RIGHT     // )
-  #define KC_SBRL M_SBRACKET_LEFT     // [
-  #define KC_SBRR M_SBRACKET_RIGHT    // ]
-  #define KC_CBRL M_CBRACKET_LEFT     // {
-  #define KC_CBRR M_CBRACKET_RIGHT    // }
-  #define KC_INF  M_INFERIOR          // <
-  #define KC_SUP  M_SUPERIOR          // >
-
   bool complex_calls(uint16_t keycode, keyrecord_t *record);
   bool invert_keys(uint16_t keycode, keyrecord_t *record, bool shift_held);
   bool force_brackets(uint16_t keycode, keyrecord_t *record);
   bool held_shift(uint16_t keycode, keyrecord_t *record, bool *shift_held);
-  bool process_record_user(uint16_t keycode, keyrecord_t *record);
+  /* bool process_record_user(uint16_t keycode, keyrecord_t *record); */
   uint32_t layer_state_set_user(uint32_t state);
   void persistent_default_layer_set(uint16_t default_layer);
 
