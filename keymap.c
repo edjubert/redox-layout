@@ -53,7 +53,7 @@
 
   #define SYM_L    TT(_SYMB)
   #define MO_INTR  MO(_INTER)
-  
+
   #define TT_ADJ   TT(_ADJUST)
   #define TT_INTER TT(_INTER)
   #define TT_NAV   TT(_NAV)
@@ -385,6 +385,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define KC_SUP  M_SUPERIOR          // >
 
 
+// How long (in milliseconds) to wait between animation steps for each of the "Solid color breathing" animations
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+
+// How long (in milliseconds) to wait between animation steps for each of the "Cycling rainbow" animations
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+
+// How long (in milliseconds) to wait between animation steps for each of the "Swirling rainbow" animations
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+
+// How long (in milliseconds) to wait between animation steps for each of the "Snake" animations
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+
+// How long (in milliseconds) to wait between animation steps for each of the "Knight" animations
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+
+// How long (in milliseconds) to wait between animation steps for each of the "Twinkle" animations
+const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
+
+// These control which hues are selected for each of the "Static gradient" modes
+const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
@@ -397,7 +418,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,TT_NAV  ,TT_INTER,        TT_INTER,TT_NAV  ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     SYM_L   ,KC_LCTL ,KC_HYPR ,KC_LALT ,     KC_LCMD ,    KC_BSPC ,KC_LCTL ,        KC_ENT  ,KC_SPC  ,    ALFRED  ,     KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT
+     SYM_L   ,TT_ADJ  ,KC_RALT ,KC_LALT ,     KC_LCMD ,    KC_BSPC ,KC_LCTL ,        KC_ENT  ,KC_SPC  ,    KC_RALT ,     KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
@@ -426,7 +447,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,KC_BRID ,KC_BRIU ,XXXXXXX ,XXXXXXX ,_______ ,_______ ,        _______ ,_______ ,KC_WH_L ,KC_WH_D ,KC_WH_U ,KC_WH_R ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     KC_BTN1 ,    KC_BTN2 ,_______ ,        _______ ,KC_BTN2 ,    KC_BTN1 ,     KC_MS_L ,KC_MS_D ,KC_MS_U ,KC_MS_R 
+     _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     KC_BTN1 ,    KC_BTN2 ,_______ ,        _______ ,KC_BTN2 ,    KC_BTN1 ,     KC_MS_L ,KC_MS_D ,KC_MS_U ,KC_MS_R
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
@@ -446,13 +467,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     RGB_TOG ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                                            XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     RGB_SAD ,RGB_SAI ,RGB_VAD ,RGB_VAI ,RGB_HUD ,RGB_HUI ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,XXXXXXX ,RGB_VAD ,RGB_VAI ,RGB_TOG ,XXXXXXX ,_______ ,                          _______ ,XXXXXXX ,RESET   ,DEBUG   ,AU_TOG  ,XXXXXXX ,_______ ,
+     _______ ,RGB_M_TW,RGB_M_B ,RGB_M_P ,XXXXXXX ,XXXXXXX ,_______ ,                          _______ ,XXXXXXX ,RESET   ,DEBUG   ,AU_TOG  ,XXXXXXX ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,        _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     RGB_M_G ,RGB_M_SW,RGB_M_R ,RGB_M_SN,RGB_M_K ,RGB_M_X ,RGB_M_T ,_______ ,        _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
      _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     XXXXXXX ,    XXXXXXX ,_______ ,        _______ ,XXXXXXX ,    XXXXXXX ,     _______ ,XXXXXXX ,XXXXXXX ,_______
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
