@@ -1,8 +1,4 @@
 #include QMK_KEYBOARD_H
-  #ifdef AUDIO_ENABLE
-    float tone_colemak[][2] = SONG(ZELDA_TREASURE);
-  #endif
-
   extern keymap_config_t keymap_config;
 
   // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -16,7 +12,7 @@
   #define _ADJUST 4
 
   enum custom_keycodes {
-      COLEMAK = SAFE_RANGE,
+      QWERTY = SAFE_RANGE,
       SYMB,
       NAV,
       INTER,
@@ -67,26 +63,26 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 // Change LED colors depending on the layer.
-uint32_t layer_state_set_user(uint32_t state) {
-	switch (biton32(state)) {
-		case _SYMB:
-			rgblight_setrgb_orange();
-			break;
-		case _NAV:
-			rgblight_setrgb_springgreen();
-			break;
-		case _INTER:
-			rgblight_setrgb_teal();
-			break;
-		case _ADJUST:
-			rgblight_setrgb_red();
-			break;
-		default: //  for any other layers, or the default layer
-			rgblight_setrgb_yellow();
-			break;
-	}
-	return state;
-};
+// uint32_t layer_state_set_user(uint32_t state) {
+// 	switch (biton32(state)) {
+// 		case _SYMB:
+// 			rgblight_setrgb_orange();
+// 			break;
+// 		case _NAV:
+// 			rgblight_setrgb_springgreen();
+// 			break;
+// 		case _INTER:
+// 			rgblight_setrgb_teal();
+// 			break;
+// 		case _ADJUST:
+// 			rgblight_setrgb_red();
+// 			break;
+// 		default: //  for any other layers, or the default layer
+// 			rgblight_setrgb_yellow();
+// 			break;
+// 	}
+// 	return state;
+// };
 
 bool invert_keys(uint16_t keycode, keyrecord_t *record, bool shift_helded) {
   switch(keycode) {
@@ -314,24 +310,24 @@ bool force_brackets(uint16_t keycode, keyrecord_t *record) {
 
 bool complex_calls(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
-      case INV_1P:
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT)SS_TAP(X_BSLASH)SS_UP(X_LGUI)SS_UP(X_LALT));
-        }
-        return false;
-        break;
-      case ALFRED:
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_SPACE)SS_UP(X_LALT));
-        }
-        return false;
-        break;
-      case PASTE:
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LGUI)SS_LSFT("V")SS_UP(X_LGUI));
-        }
-        return false;
-        break;
+      // case INV_1P:
+      //   if (record->event.pressed) {
+      //       SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT)SS_TAP(X_BSLASH)SS_UP(X_LGUI)SS_UP(X_LALT));
+      //   }
+      //   return false;
+      //   break;
+      // case ALFRED:
+      //   if (record->event.pressed) {
+      //     SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_SPACE)SS_UP(X_LALT));
+      //   }
+      //   return false;
+      //   break;
+      // case PASTE:
+      //   if (record->event.pressed) {
+      //     SEND_STRING(SS_DOWN(X_LGUI)SS_LSFT("V")SS_UP(X_LGUI));
+      //   }
+      //   return false;
+      //   break;
       default:
         return false;
   }
@@ -471,7 +467,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      RGB_SAD ,RGB_SAI ,RGB_VAD ,RGB_VAI ,RGB_HUD ,RGB_HUI ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,RGB_M_TW,RGB_M_B ,RGB_M_P ,XXXXXXX ,XXXXXXX ,_______ ,                          _______ ,XXXXXXX ,RESET   ,DEBUG   ,AU_TOG  ,XXXXXXX ,_______ ,
+     _______ ,RGB_M_TW,RGB_M_B ,RGB_M_P ,XXXXXXX ,XXXXXXX ,_______ ,                          _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      RGB_M_G ,RGB_M_SW,RGB_M_R ,RGB_M_SN,RGB_M_K ,RGB_M_X ,RGB_M_T ,_______ ,        _______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
